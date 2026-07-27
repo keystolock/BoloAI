@@ -11,6 +11,13 @@
     },
     "rewrites": [
         {
+            "source": "/googlea3e2a41145085b67.html",
+            "destination":{
+                "type":"service",
+                "service":"frontend"
+            }
+        },
+        {
             "source": "/api/backend(/.*)?",
             "destination": {
                 "type": "service",
