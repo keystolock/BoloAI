@@ -2,6 +2,7 @@
 
 BoloAI is a multi-language Text to Speech convertor platform. Built with a split architecture (Frontend +  Backend), it supports voices across Hindi and 10+ Indian languages.
 
+This repository contains the FastAPI backend for **BoloAI**, an interactive, 100% free Neural Text-to-Speech application using Microsoft Edge Neural Voices via Python's `edge-tts`.
 ---
 
 ## 🌟 Key Features
