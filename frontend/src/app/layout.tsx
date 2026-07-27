@@ -10,6 +10,8 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
+
+
 export const metadata: Metadata = {
   title: 'BoloAI - Free AI Text to Speech in Hindi & 10+ Indian Languages',
   description:
@@ -46,6 +48,11 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+
+  verification:{
+    
+    google:"B3yPd0vIYHiks4S2Co5mF9jIIE0gH1b0NuQBSXmYBDc",
   },
 };
 
