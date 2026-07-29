@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Free Marathi AI Text to Speech | BoloAI',
     description: 'Convert Marathi text to realistic AI voice instantly for free.',
-    url: 'https://boloai.vercel.app/marathi',
+    url: 'https://boloai-five.vercel.app/marathi',
   },
 };
 

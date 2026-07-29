@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Free Punjabi AI Text to Speech | BoloAI',
     description: 'Convert Punjabi text into realistic AI audio for free online.',
-    url: 'https://boloai.vercel.app/punjabi',
+    url: 'https://boloai-five.vercel.app/punjabi',
   },
 };
 

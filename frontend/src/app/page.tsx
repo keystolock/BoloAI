@@ -76,7 +76,7 @@ export default function HomePage() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "BoloAI Text to Speech",
-    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://boloai.vercel.app",
+    "url": process.env.NEXT_PUBLIC_SITE_URL || "https://boloai-five.vercel.app",
     "description": "A 100% free, unlimited AI text-to-speech converter supporting Hindi, English, and 8 other Indian languages. No signup required.",
     "applicationCategory": "MultimediaApplication",
     "operatingSystem": "All",

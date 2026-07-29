@@ -30,7 +30,7 @@ export function generateMetadata({ params }: Props): Metadata {
     openGraph: {
       title: lang.seoTitle,
       description: lang.seoDescription,
-      url: `https://boloai.vercel.app/tts/${lang.slug}`,
+      url: `https://boloai-five.vercel.app/tts/${lang.slug}`,
       siteName: 'BoloAI',
       locale: 'en_IN',
       type: 'website',

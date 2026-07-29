@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Free Tamil AI Text to Speech | BoloAI',
     description: 'Convert Tamil text to realistic AI voice instantly for free.',
-    url: 'https://boloai.vercel.app/tamil',
+    url: 'https://boloai-five.vercel.app/tamil',
   },
 };
 

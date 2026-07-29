@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Free Kannada AI Text to Speech | BoloAI',
     description: 'Convert Kannada text into natural AI audio for free.',
-    url: 'https://boloai.vercel.app/kannada',
+    url: 'https://boloai-five.vercel.app/kannada',
   },
 };
 

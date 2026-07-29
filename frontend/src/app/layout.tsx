@@ -28,12 +28,12 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'BoloAI Team' }],
   creator: 'BoloAI',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://boloai.vercel.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://boloai-five.vercel.app'),
   openGraph: {
     title: 'BoloAI - Free AI Text to Speech in Hindi & 10+ Indian Languages',
     description:
       'Convert text to realistic human AI voice instantly and entirely for free. Supports pure Hindi, Marathi, Bengali, Tamil, Telugu, and English. No login required, unlimited MP3 downloads.',
-    url: 'https://boloai.vercel.app',
+    url: 'https://boloai-five.vercel.app',
     siteName: 'BoloAI',
     locale: 'en_IN',
     type: 'website',
@@ -58,7 +58,7 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
     name: 'BoloAI Text to Speech',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://boloai.vercel.app',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://boloai-five.vercel.app',
     description:
       'A 100% free, unlimited AI text-to-speech converter supporting Hindi, English, and 8 other Indian languages. No signup required.',
     applicationCategory: 'MultimediaApplication',

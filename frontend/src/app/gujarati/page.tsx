@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Free Gujarati AI Text to Speech | BoloAI',
     description: 'Convert Gujarati text to realistic AI speech for free online.',
-    url: 'https://boloai.vercel.app/gujarati',
+    url: 'https://boloai-five.vercel.app/gujarati',
   },
 };
 

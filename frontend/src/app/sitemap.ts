@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { LANGUAGES } from '@/lib/voices';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://boloai.vercel.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://boloai-five.vercel.app';
 
   const languageEntries: MetadataRoute.Sitemap = LANGUAGES.map((lang) => ({
     url: `${baseUrl}/${lang.slug}`,
