@@ -10,8 +10,6 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-
-
 export const metadata: Metadata = {
   title: 'BoloAI - Free AI Text to Speech in Hindi & 10+ Indian Languages',
   description:
@@ -48,11 +46,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-  },
-
-  verification:{
-    
-    google:"B3yPd0vIYHiks4S2Co5mF9jIIE0gH1b0NuQBSXmYBDc",
   },
 };
 
@@ -91,7 +84,14 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
         />
       </head>
-      <body className="flex flex-col min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-blue-600 selection:text-white">
+      <body className="relative flex flex-col min-h-screen bg-slate-50 text-slate-900 antialiased selection:bg-blue-600 selection:text-white overflow-x-hidden">
+        {/* Classy Ambient Background Blur Orbs throughout the website */}
+        <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+          <div className="absolute -top-32 -left-32 w-96 h-96 bg-blue-300/30 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 -right-32 w-96 h-96 bg-indigo-200/40 rounded-full blur-3xl" />
+          <div className="absolute -bottom-32 left-1/3 w-96 h-96 bg-sky-200/30 rounded-full blur-3xl" />
+        </div>
+
         <Header />
         <main className="flex-1 max-w-4xl w-full mx-auto px-3 sm:px-6 py-6 sm:py-10 flex flex-col justify-center">
           {children}
