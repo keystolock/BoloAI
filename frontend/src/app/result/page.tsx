@@ -25,6 +25,7 @@ function ResultContent() {
   const voiceObj = VOICES.find((v) => v.id === voice) || VOICES[0];
 
   const SPEED_OPTIONS = [0.75, 1, 1.25, 1.5, 2];
+  const downloadFileName = `BoloAI_${voiceObj.name}_${Date.now()}.mp3`;
 
   useEffect(() => {
     if (!text) {
@@ -38,24 +39,34 @@ function ResultContent() {
       setIsLoading(true);
       setError(null);
 
-      // Backend URL Candidate List for resilient fetch
-      const candidateUrls = [
-        process.env.NEXT_PUBLIC_BACKEND_URL,
-        'http://localhost:8000',
-        'http://localhost:7860',
-        '' // Relative path fallback
-      ].filter((url, index, self) => url !== undefined && self.indexOf(url) === index);
+      // 1. Same-origin Vercel API Route Handler candidate (HTTPS, zero CORS issues)
+      // 2. Environment backend candidate
+      // 3. Fallback local candidates
+      const envBackend = process.env.NEXT_PUBLIC_BACKEND_URL;
+      const candidateEndpoints = [
+        `/api/tts?text=${encodeURIComponent(text)}&voice=${encodeURIComponent(voice)}&pitch=${encodeURIComponent(pitch)}&trim_silence=${trimSilence}`,
+      ];
+
+      if (envBackend && envBackend.startsWith('http')) {
+        candidateEndpoints.push(
+          `${envBackend.replace(/\/$/, '')}/api/tts?text=${encodeURIComponent(text)}&voice=${encodeURIComponent(voice)}&pitch=${encodeURIComponent(pitch)}&trim_silence=${trimSilence}`
+        );
+      }
+
+      candidateEndpoints.push(
+        `http://localhost:8000/api/tts?text=${encodeURIComponent(text)}&voice=${encodeURIComponent(voice)}&pitch=${encodeURIComponent(pitch)}&trim_silence=${trimSilence}`,
+        `http://localhost:7860/api/tts?text=${encodeURIComponent(text)}&voice=${encodeURIComponent(voice)}&pitch=${encodeURIComponent(pitch)}&trim_silence=${trimSilence}`
+      );
+
+      // Deduplicate candidates
+      const uniqueEndpoints = candidateEndpoints.filter((item, pos) => candidateEndpoints.indexOf(item) === pos);
 
       let success = false;
       let lastErrorMessage = 'Failed to connect to AI Voice Backend service.';
 
-      for (const baseUrl of candidateUrls) {
+      for (const endpoint of uniqueEndpoints) {
         if (!isMounted) break;
         try {
-          const endpoint = baseUrl 
-            ? `${baseUrl.replace(/\/$/, '')}/api/tts?text=${encodeURIComponent(text)}&voice=${encodeURIComponent(voice)}&pitch=${encodeURIComponent(pitch)}&trim_silence=${trimSilence}`
-            : `/api/tts?text=${encodeURIComponent(text)}&voice=${encodeURIComponent(voice)}&pitch=${encodeURIComponent(pitch)}&trim_silence=${trimSilence}`;
-
           const response = await fetch(endpoint, {
             method: 'GET',
             headers: {
@@ -82,7 +93,7 @@ function ResultContent() {
           }
           break; // Stop loop on successful fetch
         } catch (err: any) {
-          console.warn(`TTS Fetch attempt failed for ${baseUrl}:`, err);
+          console.warn(`TTS Fetch attempt failed for ${endpoint}:`, err);
           lastErrorMessage = err.message || lastErrorMessage;
         }
       }
@@ -127,22 +138,6 @@ function ResultContent() {
           setIsPlaying(false);
         });
     }
-  };
-
-  // Download MP3 file
-  const handleDownload = () => {
-    if (!audioUrl) return;
-
-    const link = document.createElement('a');
-    link.href = audioUrl;
-    const sanitizedFileName = `BoloAI_${voiceObj.name}_${Date.now()}.mp3`;
-    link.download = sanitizedFileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    setDownloadSuccess(true);
-    setTimeout(() => setDownloadSuccess(false), 3000);
   };
 
   return (
@@ -239,7 +234,7 @@ function ResultContent() {
           <div className="flex flex-col items-center justify-center py-8 space-y-3">
             <Loader2 className="w-9 h-9 text-blue-600 animate-spin" />
             <p className="text-xs font-semibold text-slate-600">
-              Updating audio with pitch & silence modifications...
+              Generating AI audio stream...
             </p>
           </div>
         )}
@@ -294,7 +289,7 @@ function ResultContent() {
               />
             </div>
 
-            {/* Playback Speed Controls Row (Just 1x, no '(Default)' text) */}
+            {/* Playback Speed Controls Row */}
             <div className="space-y-2 bg-slate-50/80 p-4 rounded-xl border border-slate-200">
               <div className="flex items-center gap-1.5 text-xs font-bold text-slate-700">
                 <Gauge className="w-4 h-4 text-blue-600" />
@@ -321,12 +316,17 @@ function ResultContent() {
               </div>
             </div>
 
-            {/* Action Buttons: downloadBtn & retryBtn */}
+            {/* Action Buttons: Native JSX download link to prevent mobile permissions dialog */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <button
+              <a
                 id="downloadBtn"
-                onClick={handleDownload}
-                className="w-full py-3.5 px-4 rounded-xl font-bold text-sm text-white glass-button flex items-center justify-center gap-2 shadow-sm"
+                href={audioUrl}
+                download={downloadFileName}
+                onClick={() => {
+                  setDownloadSuccess(true);
+                  setTimeout(() => setDownloadSuccess(false), 3000);
+                }}
+                className="w-full py-3.5 px-4 rounded-xl font-bold text-sm text-white glass-button flex items-center justify-center gap-2 shadow-sm text-center cursor-pointer"
               >
                 {downloadSuccess ? (
                   <>
@@ -339,7 +339,7 @@ function ResultContent() {
                     <span>Download MP3</span>
                   </>
                 )}
-              </button>
+              </a>
 
               <button
                 id="retryBtn"
